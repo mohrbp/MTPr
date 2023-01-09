@@ -10,7 +10,11 @@ License: What license is it under?
 Encoding: UTF-8
 LazyData: true
 Imports: 
-  dplyr
+    dplyr,
+    ggplot2
 Suggests: 
-  devtools,
-  tidyverse
+    devtools,
+    testthat (>= 3.0.0),
+    tidyverse
+RoxygenNote: 7.2.3
+Config/testthat/edition: 3

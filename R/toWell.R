@@ -18,7 +18,7 @@ to.well <- function(num, wise, plate = 96){
          call. = FALSE)
   }
 
-  MTPtools::platesize.check(plate) -> plate.size
+  mtpR::platesize.check(plate) -> plate.size
 
   plate.size$rows -> rows
   plate.size$columns -> columns

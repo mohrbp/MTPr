@@ -10,7 +10,7 @@
 to.num <- function(well, wise, plate = 96){
 
 
-  MTPtools::platesize.check(plate) -> plate.size
+  mtpR::platesize.check(plate) -> plate.size
 
   plate.size$rows -> rows
   plate.size$columns -> columns

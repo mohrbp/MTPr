@@ -1,4 +1,4 @@
-#' Plot Plates
+#' Plot Plate
 #'
 #' @param Data A data frame containing the well locations and the values to fill
 #' @param fill The column name of the value to fill consider wrapping in double brackets and quotes
@@ -12,7 +12,7 @@
 #'
 #' @return An image object
 #' @export
-pltgeneral <- function(Data,
+plotPlate <- function(Data,
                        fill = fill,
                        wellID = wellID,
                        plate = 384,
@@ -22,7 +22,7 @@ pltgeneral <- function(Data,
                        na_size_ratio = 0.95,
                        na_alpha = 0.1){
 
-  MTPtools::platesize.check(plate) -> plate.size
+  mtpR::platesize.check(plate) -> plate.size
 
   plate.size$rows -> rows
   plate.size$columns -> columns
@@ -37,7 +37,7 @@ pltgeneral <- function(Data,
 
 
   plotting.data <- Data %>%
-    MTPtools::to.rowsandcolumns(wellID = {{wellID}})
+    mtpR::to.rowsandcolumns(wellID = {{wellID}})
 
 
   if (max(plotting.data$Row) > rowmax | max(plotting.data$Column) > colmax) {
@@ -64,6 +64,7 @@ pltgeneral <- function(Data,
 
   return(p)
 }
+
 
 #' Convert to Row and Column indices
 #'
