@@ -10,7 +10,7 @@
 to.well <- function(num, wise, plate = 96){
 
   stopifnot(is.numeric(num))
-  num.check <- num %>%
+  num.check <- num |>
     stringr::str_subset("NA", negate = TRUE)
   if (as.numeric(max((num.check))) > plate) {
     print(paste("Number of wells ", as.numeric(max((num.check)))))
@@ -29,16 +29,16 @@ to.well <- function(num, wise, plate = 96){
 
   if (wise == "row" | wise == "col") {
 
-    num.df %>%
+    num.df |>
       dplyr::mutate(n_col = dplyr::case_when(wise == "row" ~ (((num-1)%%colmax) + 1),
                                              wise == "col" ~ (((num-1)%/%rowmax) + 1)),
              n_row = dplyr::case_when(wise == "row" ~ (((num-1)%/%colmax) + 1),
                                       wise == "col" ~ (((num-1)%%rowmax) + 1))
-      ) %>%
+      ) |>
       dplyr::mutate(pos_col = columns[n_col],
-             pos_row = rows[n_row]) %>%
-      dplyr::group_by(num) %>%
-      dplyr::mutate(well = paste0(pos_row, pos_col)) %>%
+             pos_row = rows[n_row]) |>
+      dplyr::group_by(num) |>
+      dplyr::mutate(well = paste0(pos_row, pos_col)) |>
       dplyr::pull(well) -> well
 
     return (well)

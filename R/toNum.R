@@ -21,7 +21,7 @@ to.num <- function(well, wise, plate = 96){
 
   if (wise == "row" | wise == "col") {
 
-    well.df <- well.df %>%
+    well.df <- well.df |>
       dplyr::mutate(Row = as.numeric(match(toupper(substr((wellname), 1,1)), LETTERS)),
                     Column = as.numeric(substr((wellname), 2, 5))
       )
@@ -31,9 +31,9 @@ to.num <- function(well, wise, plate = 96){
       return()
     }
 
-    well.df %>%
+    well.df |>
       dplyr::mutate(num = dplyr::case_when(wise == "row" ~ (((Row-1) * colmax) + Column),
-                                           wise == "col" ~ (((Column - 1) * rowmax) + Row))) %>%
+                                           wise == "col" ~ (((Column - 1) * rowmax) + Row))) |>
       dplyr::pull(num) -> num
 
   } else {

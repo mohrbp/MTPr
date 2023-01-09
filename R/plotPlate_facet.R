@@ -41,15 +41,15 @@ plotPlate_facet <- function(Reactions,
   ylim <- c(rbound, 0.5)
 
 
-  plotting.data <- Reactions %>%
-    mtpR::to.rowsandcolumns(wellID = {{wellID}})
+  plotting.data <- Reactions |>
+    mtpR::toRowsColumns(wellID = {{wellID}})
 
   if (max(plotting.data$Row) > rowmax | max(plotting.data$Column) > colmax) {
     print("Wells greater than plate size, please select appropriate plate size")
     return()
   }
 
-  p <- plotting.data %>%
+  p <- plotting.data |>
     ggplot(aes_string(x = "Column", y = "Row")) +
     geom_point(aes_string(fill = fill), colour = "gray20", shape = shape, size = size) +
     geom_point(data = expand.grid(seq(colmax), seq(1, rowmax)),

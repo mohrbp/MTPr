@@ -12,10 +12,10 @@ addPlates <- function(dat,
                       Plate.Size
 ) {
 
-  dat.new <- dat %>%
+  dat.new <- dat |>
     mutate(Plate.Index = ceiling({{Well.Index.ColumnID}} / Plate.Size),
            Well.Index.New = {{Well.Index.ColumnID}} - Plate.Size * (Plate.Index - 1),
-           Well.Index = Well.Index.New) %>%
+           Well.Index = Well.Index.New) |>
     select(-c(Well.Index.New))
 
   return(dat.new)
