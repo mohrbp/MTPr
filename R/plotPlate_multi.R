@@ -41,17 +41,16 @@ plotPlate_multi <- function(Reactions,
 
 
   plotting.data <- Reactions |>
-    mutate(num = mtpR::to.num(well = {{wellID}},
-                              wise = fillwise,
-                              plate = plate)) |>
-    mtpR::addPlates(Well.Index.ColumnID = num,
-                    Plate.Size = plate) |>
     mtpR::toRowsColumns(wellID = {{wellID}})
 
 
 p <- plotting.data |>
-  ggplot2::ggplot(aes_string(x = "Column", y = "Row")) +
-  geom_point(aes_string(fill = fill), colour = "gray20", shape = shape, size = size) +
+  print() |>
+  ggplot(aes_string(x = "Column", y = "Row")) +
+  geom_point(aes(fill = {{fill}}),
+             colour = "gray20",
+             shape = shape,
+             size = size) +
   geom_point(data = expand.grid(seq(colmax), seq(1, rowmax)),
              aes_string(x = "Var1", y = "Var2"),
              color = "grey90", fill = na_fill, shape = shape, size = size * na_size_ratio, alpha = na_alpha) +
