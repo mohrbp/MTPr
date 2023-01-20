@@ -41,16 +41,13 @@ plotPlate_multi <- function(Reactions,
 
 
   plotting.data <- Reactions |>
-    mutate(num = mtpR::to.num(wellID,
+    mutate(num = mtpR::to.num(wellID = {{wellID}},
                               wise = fillwise,
                               plate = plate)) |>
     mtpR::addPlates(Well.Index.ColumnID = num,
                     Plate.Size = plate) |>
     mtpR::toRowsColumns(wellID = {{wellID}})
 
-  if (max(plotting.data$Row) > rowmax | max(plotting.data$Column) > colmax) {
-    print("Wells greater than plate size, please select appropriate plate size")
-    return()
   }
 
   p <- plotting.data |>
