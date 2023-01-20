@@ -15,16 +15,16 @@
 #' @export
 
 plotPlate_multi <- function(Reactions,
-                               fill = fill,
-                               wellID = wellID,
-                               fillwise = "row",
-                               # facet,
-                               plate = 384,
-                               size = 5,
-                               shape = 22,
-                               na_fill = "white",
-                               na_size_ratio = 0.95,
-                               na_alpha = 0.1){
+                            fill = fill,
+                            wellID = wellID,
+                            fillwise = "row",
+                            # facet,
+                            plate = 384,
+                            size = 5,
+                            shape = 22,
+                            na_fill = "white",
+                            na_size_ratio = 0.95,
+                            na_alpha = 0.1){
 
   mtpR::platesize.check(plate) -> plate.size
 
@@ -41,26 +41,25 @@ plotPlate_multi <- function(Reactions,
 
 
   plotting.data <- Reactions |>
-    mutate(num = mtpR::to.num(wellID = {{wellID}},
+    mutate(num = mtpR::to.num(well = {{wellID}},
                               wise = fillwise,
                               plate = plate)) |>
     mtpR::addPlates(Well.Index.ColumnID = num,
                     Plate.Size = plate) |>
     mtpR::toRowsColumns(wellID = {{wellID}})
 
-  }
 
-  p <- plotting.data |>
-    ggplot(aes_string(x = "Column", y = "Row")) +
-    geom_point(aes_string(fill = fill), colour = "gray20", shape = shape, size = size) +
-    geom_point(data = expand.grid(seq(colmax), seq(1, rowmax)),
-               aes_string(x = "Var1", y = "Var2"),
-               color = "grey90", fill = na_fill, shape = shape, size = size * na_size_ratio, alpha = na_alpha) +
-    coord_fixed(ratio = (cbound / colmax) / (rbound / rowmax), xlim = xlim, ylim = ylim) +
-    scale_y_reverse(breaks = seq(1, rowmax), labels = LETTERS[1:rowmax]) +
-    scale_x_continuous(position = "top", breaks = seq(1, colmax)) +
-    facet_grid(rows = vars(Plate.Index),
-               labeller = label_both)
+p <- plotting.data |>
+  ggplot2::ggplot(aes_string(x = "Column", y = "Row")) +
+  geom_point(aes_string(fill = fill), colour = "gray20", shape = shape, size = size) +
+  geom_point(data = expand.grid(seq(colmax), seq(1, rowmax)),
+             aes_string(x = "Var1", y = "Var2"),
+             color = "grey90", fill = na_fill, shape = shape, size = size * na_size_ratio, alpha = na_alpha) +
+  coord_fixed(ratio = (cbound / colmax) / (rbound / rowmax), xlim = xlim, ylim = ylim) +
+  scale_y_reverse(breaks = seq(1, rowmax), labels = LETTERS[1:rowmax]) +
+  scale_x_continuous(position = "top", breaks = seq(1, colmax)) +
+  facet_grid(rows = vars(Plate.Index),
+             labeller = label_both)
 
-  return(p)
+return(p)
 }
