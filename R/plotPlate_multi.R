@@ -45,7 +45,6 @@ plotPlate_multi <- function(Reactions,
 
 
 p <- plotting.data |>
-  print() |>
   ggplot(aes_string(x = "Column", y = "Row")) +
   geom_point(aes(fill = {{fill}}),
              colour = "gray20",
