@@ -50,17 +50,17 @@ plotPlate_facet <- function(Reactions,
   }
 
   p <- plotting.data |>
-    ggplot(aes_string(x = "Column", y = "Row")) +
-    geom_point(aes_string(fill = fill), colour = "gray20", shape = shape, size = size) +
-    geom_point(data = expand.grid(seq(colmax), seq(1, rowmax)),
-               aes_string(x = "Var1", y = "Var2"),
+    ggplot2::ggplot(ggplot2::aes_string(x = "Column", y = "Row")) +
+    ggplot2::geom_point(ggplot2::aes_string(fill = fill), colour = "gray20", shape = shape, size = size) +
+    ggplot2::geom_point(data = expand.grid(seq(colmax), seq(1, rowmax)),
+                        ggplot2::aes_string(x = "Var1", y = "Var2"),
                color = "grey90", fill = na_fill, shape = shape, size = size * na_size_ratio, alpha = na_alpha) +
-    coord_fixed(ratio = (cbound / colmax) / (rbound / rowmax), xlim = xlim, ylim = ylim) +
-    scale_y_reverse(breaks = seq(1, rowmax), labels = LETTERS[1:rowmax]) +
-    scale_x_continuous(position = "top", breaks = seq(1, colmax)) +
-    facet_grid(rows = vars({{facetrows}}),
-               cols = vars({{facetcols}}),
-               labeller = label_both)
+    ggplot2::coord_fixed(ratio = (cbound / colmax) / (rbound / rowmax), xlim = xlim, ylim = ylim) +
+    ggplot2::scale_y_reverse(breaks = seq(1, rowmax), labels = LETTERS[1:rowmax]) +
+    ggplot2::scale_x_continuous(position = "top", breaks = seq(1, colmax)) +
+    ggplot2::facet_grid(rows = ggplot2::vars({{facetrows}}),
+               cols = ggplot2::vars({{facetcols}}),
+               labeller = ggplot2::label_both)
 
   return(p)
 }
